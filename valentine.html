@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Shreya ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+background:linear-gradient(135deg,#ffd6e8,#ffffff);
+display:flex;
+align-items:center;
+justify-content:center;
+font-family:Poppins,sans-serif;
+overflow:hidden;
+}
+
+/* FLOATING HEARTS */
+.heart{
+position:fixed;
+top:0;
+color:pink;
+font-size:20px;
+animation:float 8s linear infinite;
+pointer-events:none;
+z-index:1;
+opacity:0.7;
+}
+@keyframes float{
+0%{transform:translateY(110vh);}
+100%{transform:translateY(-10vh);}
+}
+
+/* CARD */
+.card{
+background:white;
+padding:35px;
+border-radius:25px;
+width:360px;
+text-align:center;
+box-shadow:0 0 30px rgba(255,105,180,0.6);
+position:relative;
+z-index:5;
+}
+
+h1,h2{
+color:#ff4d88;
+font-family:Pacifico,cursive;
+}
+
+.loveText{
+font-family:Pacifico,cursive;
+font-size:22px;
+color:#ff4d88;
+line-height:1.6;
+}
+
+/* INPUT */
+input{
+padding:12px;
+width:160px;
+font-size:22px;
+border-radius:10px;
+border:2px solid pink;
+text-align:center;
+outline:none;
+}
+
+/* BUTTONS */
+button{
+padding:12px 26px;
+font-size:18px;
+border:none;
+border-radius:25px;
+cursor:pointer;
+margin:10px;
+}
+
+#yes{
+background:#ff4d88;
+color:white;
+}
+
+#no{
+background:#cccccc;
+position:absolute;
+}
+
+/* CONFETTI */
+.confetti{
+position:fixed;
+width:10px;
+height:10px;
+animation:fall 3s linear forwards;
+z-index:3;
+}
+@keyframes fall{
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(110vh);}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="bgm" loop>
+<source src="adiye.mp3" type="audio/mpeg">
+</audio>
+
+<!-- LOCK SCREEN -->
+<div id="lock" class="card">
+<h1>🔒 Enter Love Code</h1>
+<input id="pass" type="password" maxlength="4">
+<br><br>
+<button onclick="unlock()">Unlock ❤️</button>
+</div>
+
+<!-- MAIN SCREEN -->
+<div id="main" class="card" style="display:none;">
+
+<h1>Shreya Nadikudi 💖</h1>
+
+<p class="loveText">
+Nuvvu naa jeevitham lo undadam naa adrushtam…  
+ninnu premistunna.
+</p>
+
+<p class="loveText">
+You are the most beautiful part of my life,  
+my safe place, my happiness, my forever.  
+Every smile of yours makes my world brighter.  
+Every moment with you feels magical.  
+I don’t need perfect days, I just need you.  
+I promise to love you, respect you,  
+and choose you… always.
+</p>
+
+<h2>Will You Be My Valentine? 💘</h2>
+
+<p id="countdown"></p>
+
+<button id="yes" onclick="yesClicked()">YES</button>
+<button id="no" onmouseover="runAway()">NO</button>
+
+</div>
+
+<script>
+
+/* CREATE HEARTS */
+for(let i=0;i<60;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(12+Math.random()*18)+"px";
+h.style.animationDuration=(5+Math.random()*5)+"s";
+document.body.appendChild(h);
+}
+
+/* UNLOCK */
+function unlock(){
+if(document.getElementById("pass").value==="2320"){
+document.getElementById("lock").style.display="none";
+document.getElementById("main").style.display="block";
+
+let music=document.getElementById("bgm");
+music.volume=0.7;
+music.play();
+
+startCountdown();
+}
+else{
+alert("Wrong Code 💔");
+}
+}
+
+/* RUNAWAY NO */
+function runAway(){
+let x=Math.random()*(window.innerWidth-120);
+let y=Math.random()*(window.innerHeight-120);
+let b=document.getElementById("no");
+b.style.left=x+"px";
+b.style.top=y+"px";
+}
+
+/* YES CLICK */
+function yesClicked(){
+
+document.getElementById("main").innerHTML=`
+<h1>YAYYYYY 🥰</h1>
+<h2>Shreya is Raghunandan's Valentine ❤️</h2>
+
+<p class="loveText">
+Forever yours, Baby Girl 💞  
+Love you endlessly, Baby Boo 💋
+</p>
+`;
+
+launchConfetti();
+}
+
+/* CONFETTI */
+function launchConfetti(){
+for(let i=0;i<200;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.background=["pink","red","white","#ff4d88"][Math.floor(Math.random()*4)];
+c.style.animationDuration=(2+Math.random()*2)+"s";
+document.body.appendChild(c);
+
+setTimeout(()=>c.remove(),3000);
+}
+}
+
+/* COUNTDOWN */
+function startCountdown(){
+
+const target=new Date("Feb 14, 2026 00:00:00").getTime();
+
+setInterval(()=>{
+let now=new Date().getTime();
+let diff=target-now;
+
+let d=Math.floor(diff/(1000*60*60*24));
+let h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+let m=Math.floor((diff%(1000*60*60))/(1000*60));
+let s=Math.floor((diff%(1000*60))/1000);
+
+document.getElementById("countdown").innerHTML=
+"Valentine arrives in 💖 "+d+"d "+h+"h "+m+"m "+s+"s";
+
+},1000);
+
+}
+
+</script>
+
+</body>
+</html>
